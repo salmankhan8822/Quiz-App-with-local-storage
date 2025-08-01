@@ -34,9 +34,9 @@ let nextBtn = document.getElementById("nextBtn");
 let currentQuestion = 0;
 let score = 0;
 
-loadQuestions();
+loadQuestion();
 
-function loadQuestions() {
+function loadQuestion() {
   resetState();
 
   let q = questions[currentQuestion];
@@ -44,7 +44,7 @@ function loadQuestions() {
   optionBtns.forEach((btn, index) => {
     btn.textContent = q.options[index];
     btn.addEventListener("click", () => selectAnswer(btn, index));
-  });
+});
 }
 
 function resetState() {
@@ -55,21 +55,21 @@ function resetState() {
 }
 
 function selectAnswer(button, index) {
-let correctIndex = questions[currentQuestion].correct;
-if(index === correctIndex) {
-  button.classList.add("correct");
-  score++;
-} else {
-  button.classList.add("wrong");
-  optionBtns[correctIndex].classList.add("correct");
-};
-optionBtns.forEach(btn => btn.disabled = true);
+  let correctQuestion = questions[currentQuestion].correct;
+  if(index === correctQuestion) {
+    button.classList.add("correct");
+    score++;
+  } else {
+    button.classList.add("wrong");
+    optionBtns[correctQuestion].classList.add("correct");
+  }
+  optionBtns.forEach(btn => btn.disabled = true);
 }
 
 nextBtn.addEventListener("click", () => {
   currentQuestion++;
   if(currentQuestion < questions.length) {
-loadQuestions();
+    loadQuestion();
   } else {
     showScore();
   }
